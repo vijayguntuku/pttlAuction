@@ -1,0 +1,171 @@
+package dao;
+
+import dto.Team;
+import exception.DatabaseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import utility.DBConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TeamDaoImpl implements TeamDao {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TeamDaoImpl.class);
+
+    @Override
+    public Team findTeamByID(int id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String query = null;
+        Team team=null;
+
+        try {
+            query = "select * from team where id=?";
+            connection = DBConnection.getConnectionNonSingleTon();
+            preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultset = preparedStatement.executeQuery();
+            team = new Team();
+            while (resultset.next()) {
+                team.setId(resultset.getInt("id"));
+                team.setName(resultset.getString("name"));
+                team.setBalance_amount(resultset.getDouble("balance_amount"));
+                team.setCaptain_id(resultset.getInt("captain_id"));
+                team.setPlayer_count(resultset.getInt("player_count"));
+            }
+
+        } catch (DatabaseException databaseException) {
+            LOGGER.error("Exception while creating Database Connection.", databaseException);
+            // databaseException.printStackTrace();
+            throw databaseException;
+        } catch (SQLException exception) {
+            LOGGER.error("SQLException occured while reading data from Database.", exception);
+            throw new DatabaseException("Exception occured while reading data from Database.");
+        } catch (Exception exception) {
+            LOGGER.error("Exception occured while reading data from Database.", exception);
+            throw new DatabaseException("Exception occured while reading data from Database.");
+        } finally {
+            DBConnection.closeConnection(connection);
+        }
+        return team;
+    }
+
+    @Override
+    public boolean saveOrUpdateTeam(Team team) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DBConnection.getConnectionNonSingleTon();
+            String query = null;
+            if (team.getId() != 0) {
+                query = "update team set name = ? ,balance_amount = ?,captain_id = ? ,player_count=? where id =?";
+            } else {
+                query = "insert into team (name,balance_amount,captain_id,player_count,id) values(?,?,?,?,?)";
+            }
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, team.getName());
+            preparedStatement.setDouble(2, team.getBalance_amount());
+            preparedStatement.setInt(3,team.getCaptain_id());
+            preparedStatement.setInt(4,team.getPlayer_count());
+            if (team.getId() != 0) {
+                preparedStatement.setInt(5, team.getId());
+            }
+
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
+                return true;
+            }
+
+
+        } catch (DatabaseException databaseException) {
+            LOGGER.error("Exception while updating data into Database Connection.", databaseException);
+            // databaseException.printStackTrace();
+            throw databaseException;
+        } catch (SQLException exception) {
+            LOGGER.error("SQLException occured while update data into Database.", exception);
+            throw new DatabaseException("Exception occurred while updating data into Database.");
+        } catch (Exception exception) {
+            LOGGER.error("Exception occurred while updating data into Database.", exception);
+            throw new DatabaseException("Exception occurred while updating data into Database.");
+        } finally {
+            DBConnection.closeConnection(connection);
+
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteTeam(int id) {
+        Connection connection= null;
+        PreparedStatement preparedStatement = null;
+        boolean isDeleted=false;
+        try{
+            connection = DBConnection.getConnectionNonSingleTon();
+            preparedStatement= connection.prepareStatement("delete from team where id=? ");
+            preparedStatement.setInt(1,id);
+
+            int count = preparedStatement.executeUpdate();
+            isDeleted = count >0 ? true : false ;
+        }catch (DatabaseException databaseException){
+            LOGGER.error("Exception while deleting Database Connection.", databaseException);
+            // databaseException.printStackTrace();
+            throw databaseException;
+        }catch (SQLException exception){
+            LOGGER.error("SQLException occured while deleting data from Database.", exception);
+            throw new DatabaseException("Exception occured while deleting data from Database.");
+        }catch (Exception exception){
+            LOGGER.error("Exception occured while deleting data from Database.", exception);
+            throw new DatabaseException("Exception occured while deleting data from Database.");
+        }finally {
+            DBConnection.closeConnection(connection);
+        }
+        return isDeleted;
+    }
+
+
+    @Override
+    public List<Team> AllTeamList() {
+        List<Team> teamList =new ArrayList<>();
+        Connection connection= null;
+        PreparedStatement preparedStatement = null;
+        String query = null;
+        Team team=null;
+        try{
+          query = "select * from team";
+            connection = DBConnection.getConnectionNonSingleTon();
+            preparedStatement = connection.prepareStatement(query);
+            ResultSet resultset = preparedStatement.executeQuery();
+            while (resultset.next()) {
+                team = new Team();
+                team.setId(resultset.getInt("id"));
+                team.setName(resultset.getString("name"));
+                team.setBalance_amount(resultset.getDouble("balance_amount"));
+                team.setCaptain_id(resultset.getInt("captain_id"));
+                team.setPlayer_count(resultset.getInt("player_count"));
+
+                teamList.add(team);
+            }
+
+        } catch (DatabaseException databaseException) {
+            LOGGER.error("Exception while listing data from Database Connection.", databaseException);
+            // databaseException.printStackTrace();
+            throw databaseException;
+        } catch (SQLException exception) {
+            LOGGER.error("SQLException occured while reading data from Database.", exception);
+            throw new DatabaseException("Exception occured while reading data from Database.");
+        } catch (Exception exception) {
+            LOGGER.error("Exception occured while reading data from Database.", exception);
+            throw new DatabaseException("Exception occured while reading data from Database.");
+        } finally {
+            DBConnection.closeConnection(connection);
+        }
+        return teamList;
+    }
+}
