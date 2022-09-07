@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "b20811a3-9ca9-4de5-b748-a476b25cd9b2",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22800781"
+	},
+	"item": [
+		{
+			"name": "Get Player By Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "id",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"id\": 2,\r\n    \"name\" :\"Vamshi\",\r\n    \"email\" : \"vamshi@gmail.com\",\r\n    \"phone_no\" : \"9381743675\",\r\n    \"aution_price\" :\"100000\",\r\n    \"team_id\" : 1\r\n   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pttlAuction/player?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pttlAuction",
+						"player"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Player",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"email\" : \"vamshi@gmail.com\",\r\n    \"phone_no\" : \"9381743675\",\r\n    \"aution_price\" :\"100000\",\r\n    \"team_id\" : 1\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pttlAuction/player",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pttlAuction",
+						"player"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get TeamList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pttlAuction/teamlist",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pttlAuction",
+						"teamlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all playerList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pttlAuction/playerlist",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pttlAuction",
+						"playerlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get team by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pttlAuction/team?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pttlAuction",
+						"team"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save or update Team",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "     {\r\n         \"id\": 5,\r\n        \"name\": \"lions\",\r\n        \"balance_amount\": \"100000\",\r\n        \"captain_id\": 11,\r\n        \"player_count\": 2\r\n   }   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pttlAuction/team",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pttlAuction",
+						"team"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
