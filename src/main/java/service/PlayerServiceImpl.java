@@ -45,7 +45,7 @@ public class PlayerServiceImpl implements PlayerService {
         try {
             boolean inserted = playerDao.saveOrUpdatePlayer(player);
             if (inserted) {
-                resp = ResponseUtils.createResponse(true, "Data saved successfully", 200, null);
+                resp = ResponseUtils.createResponse(true, "Data saved successfully", 200, player);
             }
 
         } catch (DatabaseException e) {

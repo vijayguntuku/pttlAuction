@@ -17,6 +17,10 @@ public class Player {
     private String phone_no;
     private double auction_price;
     private int teamId;
+    private double base_price;
+    private boolean isSold;
+    private boolean isCaptain;
+    private String image;
 
 
 }

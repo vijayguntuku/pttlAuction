@@ -62,27 +62,29 @@ public class PlayerDaoImpl implements PlayerDao{
         try {
             connection = DBConnection.getConnectionNonSingleTon();
             String query = null;
-//            if (player.getId() != 0) {
-//                query = "update player set name = ? ,email = ?,phone_no = ? ,aution_price=? ,team_id =? where id =?";
-//            } else {
-                query = "insert into player (id,name,email,phone_no,aution_price,team_id) values(?,?,?,?,?,?)";
-        //    }
+            if (player.getId() != 0) {
+                query = "update player set name = ? ,email = ?,phone_no = ? ,aution_price=? ,team_id =? ,base_price=?,isSold = ?, isCaptain=?,image=? where id =?";
+            } else {
+                query = "insert into player (name,email,phone_no,aution_price,team_id,base_price,isSold,isCaptain,image) values(?,?,?,?,?,?,?,?,?)";
+           }
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, player.getId());
-            preparedStatement.setString(2, player.getName());
-            preparedStatement.setString(3, player.getEmail());
-            preparedStatement.setString(4, player.getPhone_no());
-            preparedStatement.setDouble(5, player.getAuction_price());
-            preparedStatement.setInt(6, player.getTeamId());
-//            if (player.getId() != 0) {
-//                preparedStatement.setInt(6, player.getId());
-//            }
+            preparedStatement.setString(1, player.getName());
+            preparedStatement.setString(2, player.getEmail());
+            preparedStatement.setString(3, player.getPhone_no());
+            preparedStatement.setDouble(4, player.getAuction_price());
+            preparedStatement.setInt(5, player.getTeamId());
+            preparedStatement.setDouble(6, player.getBase_price());
+            preparedStatement.setBoolean(7,player.isSold());
+            preparedStatement.setBoolean(8,player.isCaptain());
+            preparedStatement.setString(9,player.getImage());
+            if (player.getId() != 0) {
+                preparedStatement.setInt(10, player.getId());
+            }
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
                 return true;
             }
-
 
         } catch (DatabaseException databaseException) {
             LOGGER.error("Exception while updating data into Database Connection.", databaseException);
@@ -150,6 +152,10 @@ public class PlayerDaoImpl implements PlayerDao{
                 player.setTeamId(resultset.getInt("team_id"));
                 player.setAuction_price(resultset.getDouble("aution_price"));
                 player.setPhone_no(resultset.getString("phone_no"));
+                player.setBase_price(resultset.getDouble("base_price"));
+                player.setCaptain(resultset.getBoolean("isCaptain"));
+                player.setSold(resultset.getBoolean("isSold"));
+                player.setImage(resultset.getString("image"));
 
                 playerList.add(player);
             }
