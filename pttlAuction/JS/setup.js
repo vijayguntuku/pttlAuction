@@ -41,7 +41,7 @@ function loadTeams(){
 	pms.email =  $('#email').val()
 	pms.phone_no =  $('#mobile').val()
 	pms.auction_price =  $('#auctionprice').val()
-	pms.baseprice =  $('#baseprice').val()
+	pms.base_price =  $('#baseprice').val()
 	pms.name = $('#playername').val()
 	pms.team_id =  $('#selectteam').val()
 	console.log(pms)
@@ -51,7 +51,38 @@ function loadTeams(){
        
             });
     }
-  
+ function loadTeamsOverview(){
+    
+        var apiurl = '/teamlist';
+        ongoAjaxRequestAsync("GET",baseUrl+apiurl,'', function(res){
+            if(res.data.length > 0){
+             getPlayers(res.data[0].id)
+             }
+            $.each(res.data, function(idx){
+            var team = res.data[idx];
+            var classn= idx == 0 ? 'active' : ''
+            var child='<a class="'+classn+'"  onclick="getPlayers('+team.id+')">'+team.name+'</a>';
+            $('#teamlist').append(child);
+             });
+            });
+    }
+  function getPlayers(id){
+    $('#playersList').html('');
+        var apiurl = '/playerListByTeamId?id='+id;
+        ongoAjaxRequestAsync("GET",baseUrl+apiurl,'', function(res){
+            //console.log(res);
+            $.each(res.data, function(idx){
+            var team = res.data[idx];
+            var classn= idx == 0 ? 'active' : ''
+            var child=' <div class="col-3"><div class="card">'+
+            '<img src="Images/profile1.jpg" alt="John" style="width:100%">'+
+            '<h1>'+team.name+'</h1>'+
+            '<p class="title">Auction Price : '+team.auction_price+'</p></div></div>';
+            $('#playersList').append(child);
+           
+             });
+            });
+    }
   function ongoAjaxRequestAsync(dtype,urlpath, pms, successcb, failcb, asyncP){
 	var jsdata = pms != null && pms != '' ? (JSON.stringify(pms)) : ''
 	var request = $.ajax({

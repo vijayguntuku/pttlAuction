@@ -133,6 +133,52 @@ public class PlayerDaoImpl implements PlayerDao{
     }
 
     @Override
+    public List<Player> gePlayerListByTeamId(int teamId) {
+        List<Player> playerList =new ArrayList<>();
+        Connection connection= null;
+        PreparedStatement preparedStatement = null;
+        String query = null;
+        Player player=null;
+        try{
+            query = "select * from player where team_id = "+teamId;
+            connection = DBConnection.getConnectionNonSingleTon();
+            preparedStatement = connection.prepareStatement(query);
+            ResultSet resultset = preparedStatement.executeQuery();
+            while (resultset.next()) {
+                player = new Player();
+                player.setId(resultset.getInt("id"));
+                player.setName(resultset.getString("name"));
+                player.setEmail(resultset.getString("email"));
+                player.setTeam_id(resultset.getInt("team_id"));
+                player.setAuction_price(resultset.getDouble("auction_price"));
+                player.setPhone_no(resultset.getString("phone_no"));
+                player.setBase_price(resultset.getDouble("base_price"));
+                player.setCaptain(resultset.getBoolean("isCaptain"));
+                player.setSold(resultset.getBoolean("isSold"));
+                player.setImage(resultset.getString("image"));
+
+                playerList.add(player);
+            }
+
+        } catch (DatabaseException databaseException) {
+            LOGGER.error("Exception while listing data from Database Connection.", databaseException);
+            databaseException.printStackTrace();
+            throw databaseException;
+        } catch (SQLException exception) {
+        	exception.printStackTrace();
+            LOGGER.error("SQLException occured while reading data from Database.", exception);
+            throw new DatabaseException("Exception occured while reading data from Database.");
+        } catch (Exception exception) {
+        	exception.printStackTrace();
+            LOGGER.error("Exception occured while reading data from Database.", exception);
+            throw new DatabaseException("Exception occured while reading data from Database.");
+        } finally {
+            DBConnection.closeConnection(connection);
+        }
+        return playerList;
+    }
+    
+    @Override
     public List<Player> playerList() {
         List<Player> playerList =new ArrayList<>();
         Connection connection= null;
@@ -150,7 +196,7 @@ public class PlayerDaoImpl implements PlayerDao{
                 player.setName(resultset.getString("name"));
                 player.setEmail(resultset.getString("email"));
                 player.setTeam_id(resultset.getInt("team_id"));
-                player.setAuction_price(resultset.getDouble("aution_price"));
+                player.setAuction_price(resultset.getDouble("auction_price"));
                 player.setPhone_no(resultset.getString("phone_no"));
                 player.setBase_price(resultset.getDouble("base_price"));
                 player.setCaptain(resultset.getBoolean("isCaptain"));

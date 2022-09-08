@@ -13,4 +13,6 @@ public interface PlayerService {
 
     Response playerList();
 
+	Response gePlayerListByTeamId(int teamId);
+
 }

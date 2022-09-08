@@ -94,5 +94,21 @@ public class PlayerServiceImpl implements PlayerService {
 
         return resp;
     }
+    @Override
+    public Response gePlayerListByTeamId(int teamId) {
+        Response resp = null;
+        try {
+            List<Player> playerList = playerDao.gePlayerListByTeamId(teamId);
+            resp = ResponseUtils.createResponse(true, "Data Retrieved successfully=",200,playerList);
+        }catch (DatabaseException e){
+            String message = "PlayerServiceImpl:AllPlayerList() Exception occured while reading data from Database.";
+            resp = ResponseUtils.createInternalServlerErrorResponse(LOGGER, e, message);
+        }catch (Exception e){
+            String message ="PlayerServiceImpl:listAllPlayer() Exception occured while logging in to the application.";
+            resp = ResponseUtils.createInternalServlerErrorResponse(LOGGER,e, message);
+        }
+
+        return resp;
+    }
     }
 
