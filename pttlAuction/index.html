@@ -8,7 +8,6 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-        <link rel="stylesheet" href="./admin/assets/css/cs-skin-elastic.css">
         <link rel="stylesheet" href="CSS/style.css">
     
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
@@ -39,70 +38,34 @@
                     </div>
                     <div class="col">
                         <form>
-                            <form action="">
+                            <form action="" id="playerform" name="playerform" >
                                 <h4>Player Details</h4>
-                                <label for="text-input">PlayerId&nbsp;</label><input type="number" id="player" name="playerId" ><br>
-                                <label for="name">Name:</label> <input type="text" id="name" name="name" value="name" ><br>
-                                <label for="email">Email:</label><input type="email" id="email" name="email" value="email"><br>
-                                <label for="Mobile">Mobile:</label><input type="text" id="mobile" name="mobile" value="name"><br>
-                                <label for="baseprice">Base Price:</label><input type="number" id="baseprice" name="price" value="100000" readonly><br>
-                                <label for="auctionprice">Auction Price:</label><input type="number" id="auctionprice" name="price" value=""><br>
+                                <label for="text-input">PlayerId&nbsp;</label><input type="number" id="playerId" name="playerId" >
+                                <input type="button" value="Get Player" onclick="getPlayer()"><br>
+                                <label for="name">Name:</label> <input type="text" id="playername" name="playername" value="name" readonly><br>
+                                <label for="email">Email:</label><input type="email" id="email" name="email" value="email" readonly><br>
+                                <label for="Mobile">Mobile:</label><input type="text" id="mobile" name="mobile" value="name" readonly><br>
+                                <label for="baseprice">Base Price:</label><input type="number" id="baseprice" name="baseprice" readonly><br>
+                                <label for="auctionprice">Auction Price:</label><input type="number" id="auctionprice" name="auctionprice" value=""><br>
                                 <label for="teamId">Team</label>
-                                <select name="teamId" id="team">
-                                    <option value="1">Tiger</option>
-                                    <option value="2">Lion</option>
-                                  </select>
-                                <input type="submit" value="Submit">
+                                <select name="teamId" id="selectteam">
+                                 </select>
+                                <input type="button" value="Submit" onclick="savePlayer()">
                               </form> 
                         </form>
 
                     </div>
                </div>
             </div>
-            <div class="col-4">
-                <div class="inline">
-                    <form>
-                        <h4>BID Details</h4>
-                        <label for="id">Id:&nbsp;</label> <input type="number" id="id" name="id" value="ID" ><br>
-                        <label for="start_time">Start Time :</label><input type="text" id="start_time" name="time" value=""><br>
-                        <label for="end_time">End Time:</label><input type="text" id="end_time" name="time" value=""><br>
-                        <label for="aution_price">Base Price:</label><input type="number" id="aution_price" name="price" value="100000" readonly><br>
-                        <label for="Player">PlayerId</label><input type="number" id="playerId" name="playerId" ><br>
-                        <label for="teamId">Team</label><select name="teamId" id="teamId">
-                        <option value="1">Tiger</option>
-                        <option value="2">Lion</option>
-                    </select><br>
-                        <label for="amount">Amount</label><input type="number" id="amount" name="amount" >
-                        <input type="checkbox" name="issold" value="Sold" >
-                        <label for="issold"> Issold</label><br>
-                        <input type="submit" value="BID" id="issold">
-                    </form>
-                </div>
-            </div>
+            
           </div>
         <div class="next">
             <input type="submit" value="previous"> <input type="submit" value="next">
         </div>
     </div>    
     <div class="team">
-        <div class="row">
-            <div class="col">
-              <h3>Lions</h3>
-              <p>Players - 3/6</p>
-              <p>Amount -20000/30000</p>
-            </div>
-            <div class="col">
-                <h3>Lions</h3>
-                <p>Players - 3/6</p>
-                <p>Amount -20000/30000</p>
-                
-            </div>
-            <div class="col">
-                <h3>Lions</h3>
-                <p>Players - 3/6</p>
-                <p>Amount -20000/30000</p>
-                
-            </div>
+    <!-- teams will come here from server response-->
+        <div class="row" id="teamlist">
         </div>
     </div>
     </body>

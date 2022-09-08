@@ -149,7 +149,8 @@ public class TeamDaoImpl implements TeamDao {
                 team.setBalance_amount(resultset.getDouble("balance_amount"));
                 team.setCaptain_id(resultset.getInt("captain_id"));
                 team.setPlayer_count(resultset.getInt("player_count"));
-
+                team.setBase_price(resultset.getDouble("base_price"));
+                team.setMin_player_count(resultset.getInt("min_player_count"));
                 teamList.add(team);
             }
 

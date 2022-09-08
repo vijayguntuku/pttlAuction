@@ -16,7 +16,7 @@ public class Player {
     private String email;
     private String phone_no;
     private double auction_price;
-    private int teamId;
+    private int team_id;
     private double base_price;
     private boolean isSold;
     private boolean isCaptain;

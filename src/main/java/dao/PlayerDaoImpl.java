@@ -34,8 +34,8 @@ public class PlayerDaoImpl implements PlayerDao{
                 player.setId(resultset.getInt("id"));
                 player.setName(resultset.getString("name"));
                 player.setEmail(resultset.getString("email"));
-                player.setTeamId(resultset.getInt("team_id"));
-                player.setAuction_price(resultset.getDouble("aution_price"));
+                player.setTeam_id(resultset.getInt("team_id"));
+                player.setAuction_price(resultset.getDouble("auction_price"));
                 player.setPhone_no(resultset.getString("phone_no"));
             }
 
@@ -63,16 +63,16 @@ public class PlayerDaoImpl implements PlayerDao{
             connection = DBConnection.getConnectionNonSingleTon();
             String query = null;
             if (player.getId() != 0) {
-                query = "update player set name = ? ,email = ?,phone_no = ? ,aution_price=? ,team_id =? ,base_price=?,isSold = ?, isCaptain=?,image=? where id =?";
+                query = "update player set name = ? ,email = ?,phone_no = ? ,auction_price=? ,team_id =? ,base_price=?,isSold = ?, isCaptain=?,image=? where id =?";
             } else {
-                query = "insert into player (name,email,phone_no,aution_price,team_id,base_price,isSold,isCaptain,image) values(?,?,?,?,?,?,?,?,?)";
+                query = "insert into player (name,email,phone_no,auction_price,team_id,base_price,isSold,isCaptain,image) values(?,?,?,?,?,?,?,?,?)";
            }
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, player.getName());
             preparedStatement.setString(2, player.getEmail());
             preparedStatement.setString(3, player.getPhone_no());
             preparedStatement.setDouble(4, player.getAuction_price());
-            preparedStatement.setInt(5, player.getTeamId());
+            preparedStatement.setInt(5, player.getTeam_id());
             preparedStatement.setDouble(6, player.getBase_price());
             preparedStatement.setBoolean(7,player.isSold());
             preparedStatement.setBoolean(8,player.isCaptain());
@@ -149,7 +149,7 @@ public class PlayerDaoImpl implements PlayerDao{
                 player.setId(resultset.getInt("id"));
                 player.setName(resultset.getString("name"));
                 player.setEmail(resultset.getString("email"));
-                player.setTeamId(resultset.getInt("team_id"));
+                player.setTeam_id(resultset.getInt("team_id"));
                 player.setAuction_price(resultset.getDouble("aution_price"));
                 player.setPhone_no(resultset.getString("phone_no"));
                 player.setBase_price(resultset.getDouble("base_price"));
