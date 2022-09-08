@@ -75,7 +75,12 @@ CREATE TABLE `player` (
 
 insert  into `player`(`id`,`name`,`email`,`phone_no`,`auction_price`,`team_id`,`base_price`,`isSold`,`isCaptain`,`image`) values 
 (4,'vamshi','vamshi@gmail.com','9381743675',100000,1,0,'\0','\0',NULL),
-(5,'vamshi','vamshi@gmail.com','9381743675',100000,2,0,'\0','\0',NULL);
+(5,'vamshi','vamshi@gmail.com','9381743675',100000,2,0,'\0','\0',NULL),
+(6,NULL,NULL,NULL,0,0,0,'\0','\0',NULL),
+(7,NULL,NULL,NULL,0,0,0,'\0','\0',NULL),
+(8,NULL,NULL,NULL,0,0,0,'\0','\0',NULL),
+(9,NULL,NULL,NULL,0,0,0,'\0','\0',NULL),
+(10,NULL,NULL,NULL,0,0,0,'\0','\0',NULL);
 
 /*Table structure for table `team` */
 
