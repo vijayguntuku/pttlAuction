@@ -37,6 +37,7 @@ public class PlayerDaoImpl implements PlayerDao{
                 player.setTeam_id(resultset.getInt("team_id"));
                 player.setAuction_price(resultset.getDouble("auction_price"));
                 player.setPhone_no(resultset.getString("phone_no"));
+                player.setImage(resultset.getString("image"));
             }
 
         } catch (DatabaseException databaseException) {
@@ -133,7 +134,7 @@ public class PlayerDaoImpl implements PlayerDao{
     }
 
     @Override
-    public List<Player> gePlayerListByTeamId(int teamId) {
+    public List<Player> getPlayerListByTeamId(int teamId) {
         List<Player> playerList =new ArrayList<>();
         Connection connection= null;
         PreparedStatement preparedStatement = null;
@@ -186,7 +187,8 @@ public class PlayerDaoImpl implements PlayerDao{
         String query = null;
         Player player=null;
         try{
-            query = "select * from player";
+            query ="SELECT p.*,t.name AS teamName FROM player p INNER JOIN team t ON p.team_id=t.id";
+//            query = "select * from player";
             connection = DBConnection.getConnectionNonSingleTon();
             preparedStatement = connection.prepareStatement(query);
             ResultSet resultset = preparedStatement.executeQuery();
@@ -202,6 +204,7 @@ public class PlayerDaoImpl implements PlayerDao{
                 player.setCaptain(resultset.getBoolean("isCaptain"));
                 player.setSold(resultset.getBoolean("isSold"));
                 player.setImage(resultset.getString("image"));
+                player.setTeamName(resultset.getString("teamName"));
 
                 playerList.add(player);
             }

@@ -9,9 +9,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static String MYSQL_URL = "jdbc:mysql://localhost:3306/pttl_auction";
+    private static String MYSQL_URL = "jdbc:mysql://18.217.214.158:3306/pttl_auction";
     private static String MYSQL_USER_NAME = "root";
-    private static String MYSQL_PASSWORD = "root";
+    private static String MYSQL_PASSWORD = "wm9qm75Q1@0b";
 
     private static Connection connection;
 

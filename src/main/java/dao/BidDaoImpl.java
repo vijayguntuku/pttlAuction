@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BidDaoImpl implements BidDao{
+public class  BidDaoImpl implements BidDao{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BidDaoImpl.class);
 
@@ -68,7 +68,7 @@ public class BidDaoImpl implements BidDao{
             if (bid.getId() != 0) {
                 query = "update bid set start_time =? ,end_time = ?,player_id = ? ,team_id =? ,issold = ?,amount=? where id =?";
             } else {
-                query = "insert into bid (start_time,end_time,player_id,team_id,issold,amount,id) values(?,?,?,?,?,?,?)";
+                query = "insert into bid (start_time,end_time,player_id,team_id,issold,amount) values(?,?,?,?,?,?)";
             }
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1,bid.getStart_time());

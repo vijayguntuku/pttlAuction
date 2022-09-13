@@ -21,6 +21,7 @@ public class Player {
     private boolean isSold;
     private boolean isCaptain;
     private String image;
+    private String teamName;
 
 
 }

@@ -1,6 +1,8 @@
 service\BidServiceImpl.class
+servlet\ListPlayerByTeamIdServlet.class
 utility\DBConnection.class
 dao\PlayerDaoImpl.class
+filiters\AuthenticationFilter.class
 dao\TeamDaoImpl.class
 servlet\BidServlet.class
 servlet\PlayerServlet.class

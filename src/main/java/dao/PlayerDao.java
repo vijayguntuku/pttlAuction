@@ -14,6 +14,6 @@ public interface PlayerDao {
 
     List<Player> playerList();
 
-	List<Player> gePlayerListByTeamId(int teamId);
+	List<Player> getPlayerListByTeamId(int teamId);
 
 }

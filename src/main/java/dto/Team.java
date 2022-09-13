@@ -18,5 +18,6 @@ public class Team {
     private int player_count;
     private double base_price;
     private int min_player_count;
+    private String image;
 
 }

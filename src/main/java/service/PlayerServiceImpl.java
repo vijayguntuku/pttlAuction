@@ -95,10 +95,10 @@ public class PlayerServiceImpl implements PlayerService {
         return resp;
     }
     @Override
-    public Response gePlayerListByTeamId(int teamId) {
+    public Response getPlayerListByTeamId(int teamId) {
         Response resp = null;
         try {
-            List<Player> playerList = playerDao.gePlayerListByTeamId(teamId);
+            List<Player> playerList = playerDao.getPlayerListByTeamId(teamId);
             resp = ResponseUtils.createResponse(true, "Data Retrieved successfully=",200,playerList);
         }catch (DatabaseException e){
             String message = "PlayerServiceImpl:AllPlayerList() Exception occured while reading data from Database.";
