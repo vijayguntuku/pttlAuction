@@ -132,25 +132,24 @@ public class TeamDaoImpl implements TeamDao {
 
     @Override
     public List<Team> AllTeamList() {
-        List<Team> teamList =new ArrayList<>();
         Connection connection= null;
+        List<Team> teamList= new ArrayList<>();
         PreparedStatement preparedStatement = null;
         String query = null;
         Team team=null;
         try{
-          query = "select * from team";
+          query = "SELECT COUNT(p.id) AS playercount, t.id, t.name, t.balance_amount  FROM player p INNER JOIN team t ON p.team_id=t.id group by t.id";
             connection = DBConnection.getConnectionNonSingleTon();
             preparedStatement = connection.prepareStatement(query);
             ResultSet resultset = preparedStatement.executeQuery();
+
             while (resultset.next()) {
+
                 team = new Team();
                 team.setId(resultset.getInt("id"));
                 team.setName(resultset.getString("name"));
                 team.setBalance_amount(resultset.getDouble("balance_amount"));
-                team.setCaptain_id(resultset.getInt("captain_id"));
-                team.setPlayer_count(resultset.getInt("player_count"));
-                team.setBase_price(resultset.getDouble("base_price"));
-                team.setMin_player_count(resultset.getInt("min_player_count"));
+                team.setPlayer_count(resultset.getInt("playercount"));
                 teamList.add(team);
             }
 
@@ -169,4 +168,43 @@ public class TeamDaoImpl implements TeamDao {
         }
         return teamList;
     }
+
+    @Override
+    public boolean UpdateTeam(int id, Double value) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DBConnection.getConnectionNonSingleTon();
+            String query = null;
+            connection = DBConnection.getConnectionNonSingleTon();
+            query = null;
+            query = "update team set balance_amount = ? where id =?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setDouble(1, value);
+            preparedStatement.setInt(2, id);
+
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
+                return true;
+            }
+
+
+        } catch (DatabaseException databaseException) {
+            LOGGER.error("Exception while updating data into Database Connection.", databaseException);
+            // databaseException.printStackTrace();
+            throw databaseException;
+        } catch (SQLException exception) {
+            LOGGER.error("SQLException occured while update data into Database.", exception);
+            throw new DatabaseException("Exception occurred while updating data into Database.");
+        } catch (Exception exception) {
+            LOGGER.error("Exception occurred while updating data into Database.", exception);
+            throw new DatabaseException("Exception occurred while updating data into Database.");
+        } finally {
+            DBConnection.closeConnection(connection);
+
+        }
+        return false;
+    }
+
+
 }

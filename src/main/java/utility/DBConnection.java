@@ -65,4 +65,9 @@ public class DBConnection {
         }
     }
 
+    public static void main(String[] args) {
+        Connection conn = getConnectionNonSingleTon();
+        System.out.println(conn);
+    }
+
 }

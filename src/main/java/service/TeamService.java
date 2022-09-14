@@ -11,4 +11,6 @@ public interface TeamService {
     Response deleteTeam(int id);
 
     Response allTeamList();
+
+    Response UpdateTeam(int id ,Double value);
 }

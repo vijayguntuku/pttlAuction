@@ -64,9 +64,9 @@ public class PlayerDaoImpl implements PlayerDao{
             connection = DBConnection.getConnectionNonSingleTon();
             String query = null;
             if (player.getId() != 0) {
-                query = "update player set name = ? ,email = ?,phone_no = ? ,auction_price=? ,team_id =? ,base_price=?,isSold = ?, isCaptain=?,image=? where id =?";
+                query = "update player set name = ? ,email = ?,phone_no = ? ,auction_price=? ,team_id =? ,base_price=?,isSold = ?, isCaptain=? where id =?";
             } else {
-                query = "insert into player (name,email,phone_no,auction_price,team_id,base_price,isSold,isCaptain,image) values(?,?,?,?,?,?,?,?,?)";
+                query = "insert into player (name,email,phone_no,auction_price,team_id,base_price,isSold,isCaptain) values(?,?,?,?,?,?,?,?)";
            }
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, player.getName());
@@ -77,9 +77,8 @@ public class PlayerDaoImpl implements PlayerDao{
             preparedStatement.setDouble(6, player.getBase_price());
             preparedStatement.setBoolean(7,player.isSold());
             preparedStatement.setBoolean(8,player.isCaptain());
-            preparedStatement.setString(9,player.getImage());
             if (player.getId() != 0) {
-                preparedStatement.setInt(10, player.getId());
+                preparedStatement.setInt(9, player.getId());
             }
 
             int rowsInserted = preparedStatement.executeUpdate();

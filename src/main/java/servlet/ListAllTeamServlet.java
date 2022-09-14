@@ -1,8 +1,10 @@
 package servlet;
 
 import dao.Response;
+import dto.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import service.ConfigService;
 import service.TeamService;
 import utility.ResponseUtils;
 
@@ -23,11 +25,16 @@ public class ListAllTeamServlet extends HttpServlet {
     @Inject
     TeamService teamService;
 
+    @Inject
+    ConfigService configService;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Response resp = null;
+        Config configItem = null;
 
         try {
+
             resp = teamService.allTeamList();
             PrintWriter out = response.getWriter();
             out.println(utility.JsonUtils.convertToString(resp));

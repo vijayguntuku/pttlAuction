@@ -3,10 +3,13 @@ servlet\ListPlayerByTeamIdServlet.class
 utility\DBConnection.class
 dao\PlayerDaoImpl.class
 filiters\AuthenticationFilter.class
+dao\ConfigDaoImpl.class
 dao\TeamDaoImpl.class
+dto\Config.class
 servlet\BidServlet.class
 servlet\PlayerServlet.class
 exception\DatabaseException.class
+service\ConfigService.class
 service\PlayerService.class
 service\TeamService.class
 dao\PlayerDao.class
@@ -21,7 +24,9 @@ servlet\PlayerListServlet.class
 dao\BidDao.class
 utility\Constants.class
 dto\Team.class
+dao\ConfigDao.class
 utility\ResponseUtils.class
+service\ConfigServiceImpl.class
 service\BidService.class
 service\PlayerServiceImpl.class
 dto\Player.class

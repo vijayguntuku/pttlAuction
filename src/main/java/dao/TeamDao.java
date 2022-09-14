@@ -14,4 +14,6 @@ public interface TeamDao {
 
     List<Team> AllTeamList();
 
+    boolean UpdateTeam(int id ,Double value);
+
 }

@@ -1,13 +1,17 @@
 package servlet;
 
 import dao.Response;
+import dto.Config;
 import dto.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import service.ConfigService;
 import service.PlayerService;
+import service.TeamService;
 import utility.ResponseUtils;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +29,11 @@ public class PlayerServlet extends HttpServlet {
     @Inject
     PlayerService playerService;
 
+    @Inject
+    ConfigService configService;
+    @Inject
+    TeamService teamService;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Response resp = null;
@@ -40,11 +49,24 @@ public class PlayerServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Response resp = null;
+        Config configItem = null;
         try {
-            Player player = utility.JsonUtils.convertToObject(req, Player.class);
+
+            ServletContext context = request.getServletContext();
+            if(context.getAttribute("CONFIG_ITEM")==null) {
+                configItem = configService.findConfigById(1);
+                context.setAttribute("CONFIG_ITEM", configItem);
+            }else{
+                configItem =  (Config) context.getAttribute("CONFIG_ITEM");
+            }
+            Player player = utility.JsonUtils.convertToObject(request, Player.class);
             resp = playerService.saveOrUpdatePlayer(player);
+
+            double value = configItem.getAllotmentAmount()-player.getAuction_price();
+            teamService.UpdateTeam(player.getTeam_id(), value);
+
             PrintWriter out = response.getWriter();
             out.println(utility.JsonUtils.convertToString(resp));
         }catch (Exception e){
